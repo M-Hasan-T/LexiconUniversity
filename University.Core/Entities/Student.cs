@@ -20,5 +20,8 @@ namespace University.Core.Entities
 
         //Navigation property
         public Address Address { get; set; }
+
+        //Conv 2 samma som Conv 1
+        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

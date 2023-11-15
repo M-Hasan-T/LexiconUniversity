@@ -23,5 +23,8 @@ namespace University.Core.Entities
         //Conv 4 add foreign key
         public int StudentId { get; set; }
         public Student Student { get; set; }
+
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
     }
 }

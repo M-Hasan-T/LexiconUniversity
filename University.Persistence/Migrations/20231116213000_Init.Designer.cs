@@ -11,8 +11,8 @@ using University.Persistence.Data;
 namespace University.Persistence.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20231115235547_EnrollmentAgain")]
-    partial class EnrollmentAgain
+    [Migration("20231116213000_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,11 +70,8 @@ namespace University.Persistence.Migrations
 
             modelBuilder.Entity("University.Core.Entities.Enrollment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -82,14 +79,9 @@ namespace University.Persistence.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("StudentId", "CourseId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Enrollment");
                 });

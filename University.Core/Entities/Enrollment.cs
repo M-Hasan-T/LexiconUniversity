@@ -11,7 +11,6 @@ namespace University.Core.Entities
 {
     public class Enrollment
     {
-        public int Id { get; set; }
         public int Grade { get; set; }
 
         //Conv 1 nullable foreign key!!

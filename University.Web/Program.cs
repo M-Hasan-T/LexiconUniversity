@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using University.Persistence;
 using University.Persistence.Data;
+using University.Web.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<UniversityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityContext") ?? throw new InvalidOperationException("Connection string 'UniversityContext' not found.")));
@@ -11,24 +13,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
-    var db = serviceProvider.GetRequiredService<UniversityContext>();
 
-    await db.Database.EnsureDeletedAsync();
-    await db.Database.MigrateAsync();
-
-    try
-    {
-        await SeedData.InitAsync(db);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e.Message);
-        throw;
-    }
-}
 
 
 // Configure the HTTP request pipeline.
@@ -37,6 +22,10 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+else
+{
+    await app.SeedDataAsync();
 }
 
 app.UseHttpsRedirection();

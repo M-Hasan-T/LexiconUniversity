@@ -40,12 +40,12 @@ namespace University.Persistence
                 var avatar = faker.Internet.Avatar();
                 var email = faker.Internet.Email(fname, lname, "lexicon.se");
 
-                var student = new Student()
+                var student = new Student(avatar, fname, lname, email)
                 {
-                    Avatar = avatar,
-                    FirstName = fname,
-                    LastName = lname,
-                    Email = email,
+                    //Avatar = avatar,
+                    //FirstName = fname,
+                    //LastName = lname,
+                    //Email = email,
                     Address = new Address
                     {
                         Street = faker.Address.StreetAddress(),

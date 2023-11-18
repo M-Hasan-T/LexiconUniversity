@@ -40,7 +40,7 @@ namespace University.Persistence
                 var avatar = faker.Internet.Avatar();
                 var email = faker.Internet.Email(fname, lname, "lexicon.se");
 
-                var student = new Student(avatar, fname, lname, email)
+                var student = new Student(avatar, new Name(fname, lname), email)
                 {
                     //Avatar = avatar,
                     //FirstName = fname,

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using University.Persistence;
 using University.Persistence.Data;
+using University.Web.AutoMapperConfig;
 using University.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +11,9 @@ builder.Services.AddDbContext<UniversityContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(UniversityMappings));
 
 var app = builder.Build();
-
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -64,8 +64,10 @@ namespace University.Web.Controllers
                 return NotFound();
             }
 
-            var student = await db.Student
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var student = await mapper.ProjectTo<StudentDetailsViewModel>(db.Student)
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+
             if (student == null)
             {
                 return NotFound();

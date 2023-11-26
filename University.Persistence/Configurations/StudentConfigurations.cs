@@ -16,6 +16,8 @@ namespace University.Persistence.Configurations
             .Property(n => n.LastName)
             .HasColumnName("LastName");
 
+            builder.Property<DateTime>("Edited");
+
             builder.HasOne(s => s.Address)
             .WithOne(a => a.Student)
             .OnDelete(DeleteBehavior.Cascade);

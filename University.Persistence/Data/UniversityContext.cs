@@ -29,6 +29,11 @@ namespace University.Persistence.Data
 
             modelBuilder.ApplyConfiguration(new StudentConfigurations());
 
+            //foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            //{
+            //    entity.AddProperty("Edited", typeof(DateTime));
+            //}
+
             //modelBuilder.Entity<Student>().OwnsOne(s => s.Name).ToTable("Name");
 
 

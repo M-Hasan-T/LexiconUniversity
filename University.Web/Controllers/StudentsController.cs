@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using University.Core.Entities;
 using University.Persistence.Data;
+using University.Web.Filters;
 
 namespace University.Web.Controllers
 {
@@ -87,28 +88,17 @@ namespace University.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ModelStateIsValid]
         public async Task<IActionResult> Create(StudentCreateViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
-                //var student = new Student(faker.Internet.Avatar(), new Name(viewModel.NameFirstName, viewModel.NameLastName), viewModel.Email)
-                //{
-                //    Address = new Address
-                //    {
-                //        Street = viewModel.AddressStreet,
-                //        ZipCode = viewModel.AddressZipCode,
-                //        City = viewModel.AddressCity
-                //    }
-                //};
 
-                var student = mapper.Map<Student>(viewModel);
-                student.Avatar = faker.Internet.Avatar();
+            var student = mapper.Map<Student>(viewModel);
+            student.Avatar = faker.Internet.Avatar();
 
-                db.Add(student);
-                await db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
+            db.Add(student);
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Students/Edit/5

@@ -4,13 +4,19 @@ using University.Persistence;
 using University.Persistence.Data;
 using University.Web.AutoMapperConfig;
 using University.Web.Extensions;
+using University.Web.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<UniversityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityContext") ?? throw new InvalidOperationException("Connection string 'UniversityContext' not found.")));
 
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews(opt =>
+//{
+//    opt.Filters.Add(typeof(ModelStateIsValid));
+//});
 builder.Services.AddAutoMapper(typeof(UniversityMappings));
 
 var app = builder.Build();

@@ -48,10 +48,12 @@ namespace University.Web.Controllers
             //                    //})
             //                }).Take(5);
 
-            var student = db.Student.Include(s => s.Address).FirstOrDefault();
-            student.Name.FirstName = "Edit in index";
-            db.Student.Update(student);
-            await db.SaveChangesAsync();
+            //var student = db.Student.Include(s => s.Address).FirstOrDefault();
+            //student.Name.FirstName = "Edit in index";
+            //db.Student.Update(student);
+            //await db.SaveChangesAsync();
+
+            var res = db.Student.Where(s => EF.Property<DateTime>(s, "Edited") >= DateTime.Now.AddDays(-1));
 
             var model = mapper.ProjectTo<StudentIndexViewModel>(db.Student)
                               .OrderByDescending(x => x.Id)

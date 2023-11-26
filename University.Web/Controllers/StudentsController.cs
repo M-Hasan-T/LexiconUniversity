@@ -48,7 +48,10 @@ namespace University.Web.Controllers
             //                    //})
             //                }).Take(5);
 
-
+            var student = db.Student.Include(s => s.Address).FirstOrDefault();
+            student.Name.FirstName = "Edit in index";
+            db.Student.Update(student);
+            await db.SaveChangesAsync();
 
             var model = mapper.ProjectTo<StudentIndexViewModel>(db.Student)
                               .OrderByDescending(x => x.Id)

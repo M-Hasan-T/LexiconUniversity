@@ -22,9 +22,13 @@ namespace University.Web.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-              return _context.Course != null ? 
-                          View(await _context.Course.ToListAsync()) :
-                          Problem("Entity set 'UniversityContext.Course'  is null.");
+            var courses = _context.Course.Select(c => new { c.Title, Start = EF.Property<DateTime>(c, "PeriodStart") }).ToList();
+
+            var all = _context.Course.TemporalAll();
+
+            return _context.Course != null ?
+                        View(await _context.Course.ToListAsync()) :
+                        Problem("Entity set 'UniversityContext.Course'  is null.");
         }
 
         // GET: Courses/Details/5
@@ -150,14 +154,14 @@ namespace University.Web.Controllers
             {
                 _context.Course.Remove(course);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CourseExists(int id)
         {
-          return (_context.Course?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Course?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
